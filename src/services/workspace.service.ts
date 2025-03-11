@@ -222,7 +222,7 @@ export const deleteWorkspaceService = async (
     }
 
     // Check if the user owns the workspace
-    if (workspace.owner.toString() !== userId) {
+    if (workspace.owner.toString() !== userId.toString()) {
       throw new UnauthorizedException(
         "You are not authorized to delete this workspace"
       );
@@ -237,7 +237,7 @@ export const deleteWorkspaceService = async (
 
     await TaskModel.deleteMany({ workspace: workspace._id }).session(session);
 
-    await MemberModel.deleteMany({workspaceId: workspace._id}).session(session);
+    await MemberModel.deleteMany({ workspaceId: workspace._id }).session(session);
 
     // Update the user's currentWorkspace if it matches the deleted workspace
     if (user?.currentWorkspace?.equals(workspaceId)) {
