@@ -26,7 +26,6 @@ export const loginOrCreateAccountService = async (data: {
 
   try {
     session.startTransaction();
-    console.log("Started Session...");
 
     let user = await UserModel.findOne({ email }).session(session);
 
@@ -75,7 +74,6 @@ export const loginOrCreateAccountService = async (data: {
     }
     await session.commitTransaction();
     session.endSession();
-    console.log("End Session...");
 
     return { user };
   } catch (error) {
@@ -146,7 +144,6 @@ export const registerUserService = async (body: {
 
     await session.commitTransaction();
     session.endSession();
-    console.log("End Session...");
 
     return {
       userId: user._id,
